@@ -59,7 +59,7 @@ namespace commander
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "commander v1"));
             }
 
-            app.UseHttpsRedirection();
+            
 
             app.UseRouting();
 
