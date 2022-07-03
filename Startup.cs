@@ -36,6 +36,7 @@ namespace commander
             services.AddControllers();
 
             services.AddScoped<ICommanderRepo,SqlCommanderRepo>();
+            services.AddScoped<IUserRegistrationRepo,UserRegistrationRepo>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
