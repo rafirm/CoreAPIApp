@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commander-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: commander-app
+  template:
+    metadata:
+      labels:
+        app: commander-app
+    spec:
+      containers:
+      - name: commander-app
+        image: rafirm/coreapiapp:latest  # Replace with your actual repository and tag
+        ports:
+        - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+        - name: ConnectionStrings__CommanderConnection
+          value: "Server=192.168.29.138;Database=commanderDB;User Id=CommanderAPI;Password=asd@123;"
+        # Add more environment variables or configuration as needed
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest  # Replace with your actual nginx image if different
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        # Add more configuration for nginx if needed
+      volumes:
+      - name: nginx-config
+        hostPath:
+          path: /path/to/your/nginx.conf  # Replace with the actual path on your host machine

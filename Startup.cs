@@ -37,7 +37,7 @@ namespace commander
 
             services.AddScoped<ICommanderRepo,SqlCommanderRepo>();
             services.AddScoped<IUserRegistrationRepo,UserRegistrationRepo>();
-
+          
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers().AddNewtonsoftJson(s => {
